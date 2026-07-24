@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sketchbook Café — Handcrafted Coffee &amp; Warm Mornings</title>
+  <title>Planeat Restocafe — Shipping Container Dining &amp; Charcoal Specials</title>
   <meta name="description" content="A cozy neighborhood café serving handcrafted coffee, fresh pastries, and warm conversation. Visit us on Elm Street.">
   <link rel="icon" type="image/png" href="favicon.png">
 
@@ -112,6 +112,24 @@
     }
 
     /* ===== NAV ===== */
+        .nav-logo-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-logo-img {
+      height: 48px;
+      width: auto;
+    }
+    .nav-brand-text span {
+      color: var(--terracotta);
+    }
+
     .site-nav {
       position: fixed;
       top: 0;
@@ -681,7 +699,10 @@
   <!-- ===== NAV ===== -->
   <nav class="site-nav" aria-label="Main navigation">
     <div class="container nav-inner">
-      <a href="#" class="nav-logo" aria-label="Sketchbook Café home">Sketchbook <span>Café</span></a>
+      <a href="#" class="nav-logo-brand" aria-label="Planeat Restocafe home">
+        <img src="logo.svg" alt="Planeat Restocafe Logo" class="nav-logo-img">
+        <span class="nav-brand-text">Planeat <span>Restocafe</span></span>
+      </a>
       <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
           <line x1="3" y1="6" x2="21" y2="6"/>
@@ -704,10 +725,10 @@
       <div class="container hero-inner">
         <div class="hero-text">
           <h1>
-            Coffee drawn<br>by hand, poured<br>with care.
-            <span class="hand-accent">— your neighborhood sketchbook</span>
+            Flavors built<br>from the ground<br>up.
+            <span class="hand-accent">— Planeat Restocafe</span>
           </h1>
-          <p class="hero-sub">Small-batch roasts, flaky pastries, and a corner table that's always saved for you. No rush, no noise — just good mornings.</p>
+          <p class="hero-sub">Turning simple shipping containers into a haven of good food, charcoal specials, Mandhi pots, and beautiful ambience in Bharanganam.</p>
           <a href="#menu" class="btn-primary">See the Menu</a>
         </div>
         <div class="hero-illustration" aria-hidden="true">
@@ -1007,100 +1028,92 @@ z"/>
             <svg class="menu-card-icon illust-svg" viewBox="0 0 36 36" aria-hidden="true">
               <path d="M8 12 L28 12 L26 30 C25.5 32, 24 33, 22 33 L14 33 C12 33, 10.5 32, 10 30 Z"/>
               <path d="M28 15 C32 15, 34 18, 34 21 C34 24, 32 27, 28 27"/>
-              <path d="M14 8 C13 5, 15 3, 14 1"/>
-              <path d="M18 8 C17 5, 19 3, 18 1"/>
-              <path d="M22 8 C21 5, 23 3, 22 1"/>
             </svg>
-            <h3>House Drip</h3>
-            <p class="desc">Single-origin, medium roast. Smooth with notes of cocoa and toasted almond.</p>
-            <span class="price">$3.50</span>
+            <h3>Al-Faham</h3>
+            <p class="desc">Signature slow-grilled charcoal chicken infused with authentic aromatic spices.</p>
+            <span class="price">₹ 189</span>
           </article>
           <!-- Card 2 -->
           <article class="menu-card reveal-item">
             <svg class="menu-card-icon illust-svg" viewBox="0 0 36 36" aria-hidden="true">
               <path d="M8 14 L28 14 L26 30 C25.5 32, 24 33, 22 33 L14 33 C12 33, 10.5 32, 10 30 Z"/>
-              <path d="M28 17 C32 17, 34 20, 34 23 C34 26, 32 28, 28 28"/>
               <ellipse class="accent-fill" cx="18" cy="16" rx="8" ry="2" opacity="0.4"/>
-              <path d="M12 10 C14 8, 16 9, 18 7 C20 9, 22 8, 24 10"/>
             </svg>
-            <h3>Oat Latte</h3>
-            <p class="desc">Double shot, steamed oat milk, a whisper of vanilla. Creamy without the dairy.</p>
-            <span class="price">$5.25</span>
+            <h3>Peri Peri Alfaham</h3>
+            <p class="desc">Fiery peri-peri marinated chicken flame-grilled over glowing embers.</p>
+            <span class="price">₹ 199</span>
           </article>
           <!-- Card 3 -->
           <article class="menu-card reveal-item">
             <svg class="menu-card-icon illust-svg" viewBox="0 0 36 36" aria-hidden="true">
-              <path d="M6 20 C6 14, 10 10, 18 10 C26 10, 30 14, 30 20 C30 26, 26 30, 18 30 C10 30, 6 26, 6 20 Z"/>
-              <path d="M18 10 C18 7, 16 5, 18 3"/>
-              <path class="green-accent" d="M18 6 C20 4, 23 5, 24 3"/>
-              <path d="M12 20 C14 18, 16 22, 18 20 C20 18, 22 22, 24 20"/>
+              <path d="M6 20 C6 14, 10 10, 18 10 C26 10, 30 14, 30 20 Z"/>
             </svg>
-            <h3>Matcha Cloud</h3>
-            <p class="desc">Ceremonial-grade matcha, cold foam, a touch of honey. Earthy meets sweet.</p>
-            <span class="price">$5.75</span>
+            <h3>Pepper Alfaham</h3>
+            <p class="desc">Bold crushed black pepper rub, flame-kissed, tender, and juicy.</p>
+            <span class="price">₹ 199</span>
           </article>
           <!-- Card 4 -->
           <article class="menu-card reveal-item">
             <svg class="menu-card-icon illust-svg" viewBox="0 0 36 36" aria-hidden="true">
               <path d="M8 28 C8 28, 10 14, 18 14 C26 14, 28 28, 28 28"/>
-              <path d="M6 28 L30 28"/>
-              <path d="M14 14 C14 11, 16 9, 18 9 C20 9, 22 11, 22 14"/>
-              <path d="M12 20 C14 19, 16 21, 18 20 C20 19, 22 21, 24 20"/>
-              <ellipse class="accent-fill" cx="18" cy="24" rx="5" ry="2" opacity="0.3"/>
             </svg>
-            <h3>Butter Croissant</h3>
-            <p class="desc">72-hour laminated dough, French butter, baked at dawn. Shatteringly flaky.</p>
-            <span class="price">$4.00</span>
+            <h3>BBQ Alfaham</h3>
+            <p class="desc">Smoky barbecue glaze over rich, tender, spiced grilled chicken.</p>
+            <span class="price">₹ 199</span>
           </article>
           <!-- Card 5 -->
           <article class="menu-card reveal-item">
             <svg class="menu-card-icon illust-svg" viewBox="0 0 36 36" aria-hidden="true">
               <path d="M10 30 L10 12 C10 10, 12 8, 14 8 L22 8 C24 8, 26 10, 26 12 L26 30"/>
-              <path d="M8 30 L28 30"/>
-              <path d="M14 8 L14 5 L22 5 L22 8"/>
-              <path class="green-accent" d="M16 16 L20 16 M16 20 L20 20 M16 24 L20 24"/>
             </svg>
-            <h3>Cold Brew</h3>
-            <p class="desc">18-hour steep, served over ice. Bold, low-acid, dangerously drinkable.</p>
-            <span class="price">$4.50</span>
+            <h3>Chicken Mandhi</h3>
+            <p class="desc">Fragrant long-grain Mandhi rice topped with tender, seasoned roast chicken.</p>
+            <span class="price">₹ 219</span>
           </article>
           <!-- Card 6 -->
           <article class="menu-card reveal-item">
             <svg class="menu-card-icon illust-svg" viewBox="0 0 36 36" aria-hidden="true">
               <path d="M8 26 C8 18, 12 12, 18 12 C24 12, 28 18, 28 26"/>
-              <path d="M6 26 L30 26"/>
-              <path d="M18 12 L18 8"/>
-              <circle class="accent-fill" cx="18" cy="6" r="2.5" opacity="0.5"/>
-              <path d="M12 26 C12 22, 14 20, 18 20 C22 20, 24 22, 24 26"/>
             </svg>
-            <h3>Cardamom Bun</h3>
-            <p class="desc">Swedish-style, pearl sugar crust, warm spice. Best with a second coffee.</p>
-            <span class="price">$4.50</span>
+            <h3>Alfaham Mandhi</h3>
+            <p class="desc">Traditional Yemeni-style Mandhi rice served with smoky grilled Alfaham chicken.</p>
+            <span class="price">₹ 239</span>
           </article>
           <!-- Card 7 -->
           <article class="menu-card reveal-item">
             <svg class="menu-card-icon illust-svg" viewBox="0 0 36 36" aria-hidden="true">
               <path d="M10 28 C10 28, 8 16, 18 12 C28 16, 26 28, 26 28"/>
-              <path d="M8 28 L28 28"/>
-              <path class="green-accent" d="M18 12 C18 9, 16 7, 18 4 C20 7, 22 6, 23 4"/>
-              <path d="M14 22 C16 20, 20 20, 22 22"/>
             </svg>
-            <h3>Chai Steamer</h3>
-            <p class="desc">House-blend spices, steamed milk, no coffee. A warm hug in a mug.</p>
-            <span class="price">$4.75</span>
+            <h3>Paal Kappa with Beef Roast</h3>
+            <p class="desc">Creamy coconut tapioca paired with slow-cooked spicy Kerala beef roast.</p>
+            <span class="price">₹ 229</span>
           </article>
           <!-- Card 8 -->
           <article class="menu-card reveal-item">
             <svg class="menu-card-icon illust-svg" viewBox="0 0 36 36" aria-hidden="true">
               <ellipse cx="18" cy="22" rx="12" ry="8"/>
-              <path d="M10 18 C12 14, 16 12, 18 12 C20 12, 24 14, 26 18"/>
-              <path class="green-accent" d="M18 12 C17 9, 19 7, 18 5"/>
-              <path class="green-accent" d="M18 8 C20 6, 22 7, 23 5"/>
-              <ellipse class="accent-fill" cx="18" cy="22" rx="6" ry="3" opacity="0.25"/>
             </svg>
-            <h3>Seasonal Tart</h3>
-            <p class="desc">Rotating fruit, almond frangipane, shortcrust. Ask what's fresh today.</p>
-            <span class="price">$5.50</span>
+            <h3>Pidi &amp; Kozhi Curry</h3>
+            <p class="desc">Traditional steamed rice dumplings served in rich, fragrant chicken curry.</p>
+            <span class="price">₹ 229</span>
+          </article>
+          <!-- Card 9 -->
+          <article class="menu-card reveal-item">
+            <svg class="menu-card-icon illust-svg" viewBox="0 0 36 36" aria-hidden="true">
+              <path d="M6 20 C6 14, 10 10, 18 10 C26 10, 30 14, 30 20 Z"/>
+            </svg>
+            <h3>Pathiri with Beef Roast</h3>
+            <p class="desc">Thin, delicate Malabar rice flatbreads paired with succulent roasted beef.</p>
+            <span class="price">₹ 219</span>
+          </article>
+          <!-- Card 10 -->
+          <article class="menu-card reveal-item">
+            <svg class="menu-card-icon illust-svg" viewBox="0 0 36 36" aria-hidden="true">
+              <ellipse cx="18" cy="22" rx="12" ry="8"/>
+            </svg>
+            <h3>Bread &amp; Chicken Stew</h3>
+            <p class="desc">Soft bread slices served with mild, creamy coconut milk chicken stew.</p>
+            <span class="price">₹ 199</span>
           </article>
         </div>
       </div>
@@ -1117,8 +1130,8 @@ z"/>
           <!-- Panel 1 -->
           <div class="story-panel reveal-item">
             <div class="story-panel-text">
-              <h3>A Kitchen Table Idea</h3>
-              <p>In 2019, Mara and Jonas were roasting beans in their apartment kitchen, filling the hallway with the smell of caramelized sugar. Neighbors started knocking. They started answering.</p>
+              <h3>A Patch of Land &amp; A Shared Dream</h3>
+              <p>We started with nothing but a patch of empty land and a shared dream. Through every hurdle, setback, and sleepless night, we kept building.</p>
             </div>
             <div class="story-panel-illust" aria-hidden="true">
               <svg class="illust-svg story-custom-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -1209,8 +1222,8 @@ z"/>
           <!-- Panel 2 -->
           <div class="story-panel reveal-item">
             <div class="story-panel-text">
-              <h3>The Corner on Elm</h3>
-              <p>They found a tiny storefront with crooked shelves and one good window. Six months of sanding, painting, and arguing about tile grout later — Sketchbook Café opened with eight seats and a hand-painted sign.</p>
+              <h3>Built From Shipping Containers</h3>
+              <p>Turning simple shipping containers into a haven of good food, charcoal fires, and a unique, welcoming ambience for everyone to enjoy.</p>
             </div>
             <div class="story-panel-illust" aria-hidden="true">
               <svg class="illust-svg story-custom-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -1282,8 +1295,8 @@ z"/>
           <!-- Panel 3 -->
           <div class="story-panel reveal-item">
             <div class="story-panel-text">
-              <h3>Slow Mornings, Real Talk</h3>
-              <p>No Wi-Fi password on the wall (ask us, we'll share). No rush. Regulars leave their mugs on the shelf between visits. The playlist is always someone's personal mixtape. This is a living room that serves espresso.</p>
+              <h3>Grit, Passion &amp; Flavor</h3>
+              <p>No matter how bare the ground you start on, with enough grit, passion, and great ingredients, you can build something beautiful.</p>
             </div>
             <div class="story-panel-illust" aria-hidden="true">
               <svg class="illust-svg story-custom-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -1373,8 +1386,8 @@ z"/>
           <!-- Panel 4 -->
           <div class="story-panel reveal-item">
             <div class="story-panel-text">
-              <h3>Still Sketching</h3>
-              <p>Every cup gets a tiny doodle on the sleeve. Every season gets a new pastry experiment. We're not scaling up — we're settling in. Come sit. Stay a while. Draw something on the napkin.</p>
+              <h3>Proof on the Plate</h3>
+              <p>Let Planeat Restocafe be proof. Come sit with us near Vattolikadavu bridge, stay a while, and enjoy meals made with heart.</p>
             </div>
             <div class="story-panel-illust" aria-hidden="true">
               <svg class="illust-svg story-custom-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -2200,17 +2213,15 @@ z"/>
             <span class="hand-accent">come say hi</span>
             <h2>Find Us</h2>
             <address class="visit-address">
-              <strong>Sketchbook Café</strong><br>
-              142 Elm Street, Unit B<br>
-              Portland, OR 97205<br>
-              <a href="tel:+15035551234" style="color: var(--terracotta);">(503) 555-1234</a>
+              <strong>Planeat Restocafe</strong><br>
+              Near Vattolikadavu bridge, Bharanganam<br>
+              Pala, Kottayam<br>
+              <a href="tel:+917012788401" style="color: var(--terracotta);">+91 7012788401</a>
             </address>
             <h3 style="margin-bottom: 0.75rem;">Hours</h3>
             <table class="hours-table" aria-label="Opening hours">
               <tbody>
-                <tr><td>Monday – Friday</td><td>7:00 am – 5:00 pm</td></tr>
-                <tr><td>Saturday</td><td>8:00 am – 6:00 pm</td></tr>
-                <tr><td>Sunday</td><td>8:00 am – 3:00 pm</td></tr>
+                <tr><td>Monday – Sunday</td><td>11:00 am – 11:00 pm</td></tr>
               </tbody>
             </table>
           </div>
@@ -2559,19 +2570,19 @@ M1591.000000,1173.000000
         <path d="M20 24 C14 21, 10 16, 12 10 C18 14, 19 19, 20 24"/>
         <path class="green-accent" d="M20 18 C26 15, 30 10, 28 5 C22 9, 21 14, 20 18"/>
       </svg>
-      <p class="footer-logo">Sketchbook <span>Café</span></p>
+      <p class="footer-logo">Planeat <span>Restocafe</span></p>
       <ul class="footer-social" role="list">
         <li><a href="#" aria-label="Instagram">Instagram</a></li>
         <li><a href="#" aria-label="Twitter / X">Twitter</a></li>
         <li><a href="#" aria-label="Email us">Email</a></li>
       </ul>
-      <p class="footer-copy">&copy; 2026 Sketchbook Café. Drawn with care on Elm Street.</p>
+      <p class="footer-copy">&copy; 2026 Planeat Restocafe. Built with passion in Bharanganam.</p>
     </div>
   </footer>
 
   <!-- ===== STICKY ORDER BUTTON ===== -->
   <button class="sticky-order" aria-label="Order online" id="stickyOrder">
-    ☕ Order Ahead
+    <a href="tel:+917012788401" style="color: inherit; text-decoration: none;">📞 Order: +91 7012788401</a>
   </button>
 
   <!-- ===== ANIME.JS v4 (ESM module) ===== -->

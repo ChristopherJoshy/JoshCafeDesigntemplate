@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 360" width="100%" height="auto" role="img" aria-label="Planeat Restocafe Logo">
+  <defs>
+    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F7A119" />
+      <stop offset="100%" stop-color="#E25B18" />
+    </linearGradient>
+    <linearGradient id="beanGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F28B20" />
+      <stop offset="100%" stop-color="#C8480F" />
+    </linearGradient>
+  </defs>
+
+  <!-- Outer Dark Badge Contour -->
+  <path fill="#1A211E" d="
+    M 120 40 
+    C 120 20, 135 15, 150 15
+    L 350 15 
+    C 365 15, 380 20, 380 40 
+    L 395 120 
+    C 420 120, 440 140, 440 165 
+    L 440 260 
+    C 440 280, 420 295, 395 295 
+    L 380 295 
+    C 380 325, 350 345, 310 345 
+    L 190 345 
+    C 150 345, 120 325, 120 295 
+    L 105 295 
+    C 80 295, 60 280, 60 260 
+    L 60 165 
+    C 60 140, 80 120, 105 120 
+    Z
+  "/>
+
+  <!-- Inner Shipping Container Box Frame -->
+  <rect x="110" y="45" width="280" height="110" rx="8" ry="8" fill="none" stroke="#E6D9C5" stroke-width="5" />
+
+  <!-- Container Corrugation Vertical Ribs -->
+  <line x1="135" y1="52" x2="135" y2="148" stroke="#E6D9C5" stroke-width="3" opacity="0.7"/>
+  <line x1="155" y1="52" x2="155" y2="148" stroke="#E6D9C5" stroke-width="3" opacity="0.7"/>
+  <line x1="175" y1="52" x2="175" y2="148" stroke="#E6D9C5" stroke-width="3" opacity="0.7"/>
+  <line x1="325" y1="52" x2="325" y2="148" stroke="#E6D9C5" stroke-width="3" opacity="0.7"/>
+  <line x1="345" y1="52" x2="345" y2="148" stroke="#E6D9C5" stroke-width="3" opacity="0.7"/>
+  <line x1="365" y1="52" x2="365" y2="148" stroke="#E6D9C5" stroke-width="3" opacity="0.7"/>
+
+  <!-- Left Side: Coffee Bean & Steam -->
+  <!-- Steam Trails -->
+  <path d="M 188 38 Q 182 25 189 12" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M 205 35 Q 212 22 204 10" stroke="url(#orangeGrad)" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M 220 38 Q 214 25 222 12" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" fill="none"/>
+
+  <!-- Coffee Bean -->
+  <ellipse cx="205" cy="88" rx="28" ry="34" fill="url(#beanGrad)" stroke="#1A211E" stroke-width="3"/>
+  <path d="M 205 56 C 195 72, 215 104, 205 120" stroke="#1A211E" stroke-width="5" stroke-linecap="round" fill="none"/>
+
+  <!-- Right Side: Large Orange Fork -->
+  <g transform="translate(245, 30)">
+    <!-- Tines -->
+    <rect x="15" y="10" width="6" height="38" rx="2" fill="url(#orangeGrad)" />
+    <rect x="26" y="10" width="6" height="38" rx="2" fill="url(#orangeGrad)" />
+    <rect x="37" y="10" width="6" height="38" rx="2" fill="url(#orangeGrad)" />
+    <rect x="48" y="10" width="6" height="38" rx="2" fill="url(#orangeGrad)" />
+    <!-- Fork Head Base -->
+    <path d="M 12 42 C 12 62, 57 62, 57 42 Z" fill="url(#orangeGrad)" />
+    <!-- Fork Stem & Handle -->
+    <rect x="29" y="58" width="11" height="68" rx="4" fill="url(#orangeGrad)" />
+  </g>
+
+  <!-- Big Typography: PLAN EAT -->
+  <g transform="translate(70, 260)">
+    <!-- PLAN in Cream -->
+    <text x="15" y="0" font-family="'Work Sans', 'Arial Black', sans-serif" font-weight="900" font-size="82" fill="#E6D9C5" letter-spacing="-1">PLAN</text>
+    <!-- EAT in Orange -->
+    <text x="245" y="0" font-family="'Work Sans', 'Arial Black', sans-serif" font-weight="900" font-size="82" fill="url(#orangeGrad)" letter-spacing="-1">EAT</text>
+  </g>
+
+  <!-- Sub-text: restocafe -->
+  <text x="250" y="322" font-family="'Fraunces', 'Georgia', serif" font-weight="600" font-size="36" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">restocafe</text>
+</svg>
