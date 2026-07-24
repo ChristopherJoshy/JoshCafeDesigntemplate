@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Planeat Restocafe — Shipping Container Dining &amp; Charcoal Specials</title>
   <meta name="description" content="A cozy neighborhood café serving handcrafted coffee, fresh pastries, and warm conversation. Visit us on Elm Street.">
-  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,679 +20,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js"></script>
 
-  <style>
-    /* ===== RESET & BASE ===== */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    :root {
-      --cream: #F7EFE2;
-      --ink: #2B2420;
-      --terracotta: #C1592D;
-      --forest: #4B5D3A;
-      --cream-dark: #EDE3D4;
-      --shadow-warm: rgba(193, 89, 45, 0.08);
-      --font-display: 'Fraunces', serif;
-      --font-hand: 'Caveat', cursive;
-      --font-body: 'Work Sans', sans-serif;
-      --stroke-w: 2.5px;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: var(--font-body);
-      background-color: var(--cream);
-      color: var(--ink);
-      line-height: 1.6;
-      font-size: 16px;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    /* Paper grain texture overlay */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      pointer-events: none;
-      opacity: 0.04;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    }
-
-    /* ===== TYPOGRAPHY ===== */
-    h1, h2, h3 {
-      font-family: var(--font-display);
-      font-weight: 600;
-      line-height: 1.15;
-    }
-
-    h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); }
-    h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); }
-    h3 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
-
-    .hand-accent {
-      font-family: var(--font-hand);
-      font-weight: 700;
-      color: var(--terracotta);
-    }
-
-    p {
-      max-width: 60ch;
-      font-weight: 400;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    /* Focus states */
-    a:focus-visible,
-    button:focus-visible {
-      outline: 3px solid var(--terracotta);
-      outline-offset: 3px;
-      border-radius: 4px;
-    }
-
-    /* ===== LAYOUT ===== */
-    .container {
-      width: min(1200px, 90vw);
-      margin-inline: auto;
-    }
-
-    section {
-      padding: 5rem 0;
-    }
-
-    /* ===== NAV ===== */
-        .nav-logo-brand {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-family: var(--font-display);
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--ink);
-      text-decoration: none;
-    }
-    .nav-logo-img {
-      height: 48px;
-      width: auto;
-    }
-    .nav-brand-text span {
-      color: var(--terracotta);
-    }
-
-    .site-nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      padding: 1rem 0;
-      transition: background-color 0.35s ease, border-color 0.35s ease;
-      border-bottom: 2px solid transparent;
-    }
-
-    .site-nav.scrolled {
-      background-color: var(--cream);
-      border-bottom-color: var(--cream-dark);
-    }
-
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .nav-logo {
-      font-family: var(--font-hand);
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--ink);
-    }
-
-    .nav-logo span {
-      color: var(--terracotta);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 0.95rem;
-      font-weight: 500;
-      position: relative;
-      padding: 0.25rem 0;
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--terracotta);
-      transition: width 0.3s ease;
-    }
-
-    .nav-links a:hover::after,
-    .nav-links a:focus-visible::after {
-      width: 100%;
-    }
-
-    /* Mobile nav toggle */
-    .nav-toggle {
-      display: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0.5rem;
-      min-width: 44px;
-      min-height: 44px;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .nav-toggle svg {
-      width: 24px;
-      height: 24px;
-    }
-
-    /* ===== HERO ===== */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding-top: 5rem;
-    }
-
-    .hero-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: center;
-    }
-
-    .hero-text h1 {
-      margin-bottom: 1rem;
-    }
-
-    .hero-text h1 .hand-accent {
-      display: block;
-      font-size: 0.55em;
-      margin-top: 0.3rem;
-    }
-
-    .hero-sub {
-      font-size: 1.1rem;
-      color: var(--ink);
-      opacity: 0.8;
-      margin-bottom: 2rem;
-    }
-
-    .btn-primary {
-      display: inline-block;
-      background: var(--terracotta);
-      color: var(--cream);
-      font-family: var(--font-body);
-      font-weight: 600;
-      font-size: 1rem;
-      padding: 0.85rem 2rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      min-height: 44px;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px var(--shadow-warm);
-    }
-
-    .hero-illustration {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transform: translateY(-40px); /* Shift image slightly up */
-    }
-
-    .hero-illustration svg {
-      width: 100%;
-      max-width: 640px; /* Increased from 540px */
-      height: auto;
-    }
-
-    .hero-svg-illust path {
-      fill: var(--ink);
-    }
-
-    /* Steam paths */
-    .steam-path {
-      opacity: 0.6;
-    }
-
-    /* ===== MENU ===== */
-    .menu-section {
-      background: var(--cream);
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .section-header .hand-accent {
-      display: block;
-      font-size: 1.3rem;
-      margin-bottom: 0.3rem;
-    }
-
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .menu-card {
-      background: #fff;
-      border: 2px solid var(--cream-dark);
-      border-radius: 10px;
-      padding: 1.5rem;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-      cursor: default;
-    }
-
-    .menu-card:hover {
-      transform: rotate(-1.2deg) translateY(-4px);
-      box-shadow: 0 8px 24px var(--shadow-warm);
-    }
-
-    .menu-card:nth-child(even):hover {
-      transform: rotate(1.2deg) translateY(-4px);
-    }
-
-    .menu-card-icon {
-      width: 36px;
-      height: 36px;
-      margin-bottom: 0.75rem;
-    }
-
-    .menu-card h3 {
-      font-family: var(--font-display);
-      margin-bottom: 0.3rem;
-    }
-
-    .menu-card .desc {
-      font-size: 0.9rem;
-      opacity: 0.75;
-      margin-bottom: 0.5rem;
-    }
-
-    .menu-card .price {
-      font-family: var(--font-hand);
-      font-size: 1.3rem;
-      color: var(--terracotta);
-      font-weight: 700;
-    }
-
-    /* ===== STORY ===== */
-    .story-section {
-      overflow: hidden;
-    }
-
-    .story-panels {
-      display: flex;
-      flex-direction: column;
-      gap: 3rem;
-    }
-
-    .story-panel {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      align-items: center;
-    }
-
-    .story-panel:nth-child(even) {
-      direction: rtl;
-    }
-
-    .story-panel:nth-child(even) > * {
-      direction: ltr;
-    }
-
-    .story-panel:nth-child(odd) {
-      transform: translateX(-1.5rem);
-    }
-
-    .story-panel:nth-child(even) {
-      transform: translateX(1.5rem);
-    }
-
-    .story-panel-text h3 {
-      margin-bottom: 0.5rem;
-    }
-
-    .story-panel-text p {
-      font-size: 0.95rem;
-      opacity: 0.85;
-    }
-
-    .story-panel-illust {
-      display: flex;
-      justify-content: center;
-    }
-
-    .story-panel-illust svg {
-      width: 100%;
-      max-width: 180px;
-      height: auto;
-    }
-
-    /* ===== GALLERY ===== */
-    .gallery-section {
-      overflow: hidden;
-    }
-
-    .gallery-strip {
-      display: flex;
-      gap: 1.5rem;
-      padding: 1rem 0;
-    }
-
-    .gallery-tile {
-      flex: 0 0 200px;
-      height: 200px;
-      background: #fff;
-      border: 2px solid var(--cream-dark);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .gallery-tile svg {
-      width: 70%;
-      height: 70%;
-    }
-
-    /* ===== VISIT ===== */
-    .visit-section {
-      background: var(--cream-dark);
-      border-radius: 0;
-    }
-
-    .visit-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.3fr;
-      gap: 3rem;
-      align-items: center;
-    }
-
-    .visit-info h2 {
-      margin-bottom: 1rem;
-    }
-
-    .visit-address {
-      font-style: normal;
-      margin-bottom: 1.5rem;
-      line-height: 1.8;
-    }
-
-    .hours-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.95rem;
-    }
-
-    .hours-table td {
-      padding: 0.5rem 0;
-      border-bottom: 1px solid rgba(43, 36, 32, 0.1);
-    }
-
-    .hours-table td:last-child {
-      text-align: right;
-      font-weight: 500;
-    }
-
-    .visit-map {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .visit-map svg {
-      width: 100%;
-      max-width: 600px;
-      height: auto;
-    }
-
-    .visit-svg-illust path {
-      stroke: var(--ink);
-    }
-
-    /* ===== FOOTER ===== */
-    .site-footer {
-      padding: 3rem 0;
-      border-top: 2px solid var(--cream-dark);
-      text-align: center;
-    }
-
-    .footer-logo {
-      font-family: var(--font-hand);
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-
-    .footer-logo span {
-      color: var(--terracotta);
-    }
-
-    .footer-social {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-bottom: 1rem;
-      list-style: none;
-    }
-
-    .footer-social a {
-      font-size: 0.9rem;
-      font-weight: 500;
-      padding: 0.25rem;
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
-    }
-
-    .footer-social a:hover {
-      color: var(--terracotta);
-    }
-
-    .footer-copy {
-      font-size: 0.8rem;
-      opacity: 0.6;
-    }
-
-    .footer-sprig {
-      width: 40px;
-      height: 40px;
-      margin: 0 auto 1rem;
-    }
-
-    /* ===== STICKY ORDER BTN ===== */
-    .sticky-order {
-      position: fixed;
-      bottom: 1.5rem;
-      right: 1.5rem;
-      z-index: 900;
-      background: var(--terracotta);
-      color: var(--cream);
-      font-family: var(--font-body);
-      font-weight: 600;
-      font-size: 0.9rem;
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      box-shadow: 0 4px 16px var(--shadow-warm);
-      transition: transform 0.2s ease;
-      min-height: 44px;
-      min-width: 44px;
-    }
-
-    .sticky-order:hover {
-      transform: scale(1.08);
-    }
-
-    /* ===== SVG ILLUSTRATIONS ===== */
-    .illust-svg {
-      fill: none;
-      stroke: var(--ink);
-      stroke-width: 2.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .illust-svg .accent-fill {
-      fill: var(--terracotta);
-      stroke: none;
-    }
-
-    .illust-svg .green-accent {
-      stroke: var(--forest);
-    }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 1024px) {
-      .hero-inner {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-
-      .hero-illustration {
-        order: -1;
-      }
-
-      .hero-illustration svg {
-        max-width: 420px; /* Increased from 340px */
-      }
-
-      .hero-text p {
-        margin-inline: auto;
-      }
-
-      .story-panel {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-
-      .story-panel:nth-child(odd),
-      .story-panel:nth-child(even) {
-        transform: none;
-        direction: ltr;
-      }
-
-      .visit-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 640px) {
-      section {
-        padding: 3rem 0;
-      }
-
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: var(--cream);
-        flex-direction: column;
-        padding: 1.5rem;
-        gap: 1rem;
-        border-bottom: 2px solid var(--cream-dark);
-      }
-
-      .nav-links.open {
-        display: flex;
-      }
-
-      .nav-toggle {
-        display: flex;
-      }
-
-      .menu-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .gallery-strip {
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        padding-bottom: 1rem;
-      }
-
-      .gallery-tile {
-        scroll-snap-align: start;
-        flex: 0 0 160px;
-        height: 160px;
-      }
-
-      .hero {
-        min-height: auto;
-        padding-top: 7rem;
-        padding-bottom: 3rem;
-      }
-
-      .sticky-order {
-        bottom: 1rem;
-        right: 1rem;
-      }
-    }
-
-    /* ===== REDUCED MOTION ===== */
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-
-      html {
-        scroll-behavior: auto;
-      }
-    }
-
-    /* Ensure content visible without JS */
-    .reveal-item {
-      opacity: 1;
-      transform: none;
-    }
-
-    /* JS-enhanced: hide before reveal */
-    .js-enabled .reveal-item {
-      opacity: 0;
-      transform: translateY(24px);
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
@@ -700,7 +28,7 @@
   <nav class="site-nav" aria-label="Main navigation">
     <div class="container nav-inner">
       <a href="#" class="nav-logo-brand" aria-label="Planeat Restocafe home">
-        <img src="logo.svg" alt="Planeat Restocafe Logo" class="nav-logo-img">
+        <img src="assets/svgs/logo.svg" alt="Planeat Restocafe Logo" class="nav-logo-img">
         <span class="nav-brand-text">Planeat <span>Restocafe</span></span>
       </a>
       <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
@@ -1025,92 +353,60 @@ z"/>
         <div class="menu-grid">
           <!-- Card 1 -->
           <article class="menu-card reveal-item">
-            <svg class="menu-card-icon illust-svg" viewBox="0 0 36 36" aria-hidden="true">
-              <path d="M8 12 L28 12 L26 30 C25.5 32, 24 33, 22 33 L14 33 C12 33, 10.5 32, 10 30 Z"/>
-              <path d="M28 15 C32 15, 34 18, 34 21 C34 24, 32 27, 28 27"/>
-            </svg>
             <h3>Al-Faham</h3>
             <p class="desc">Signature slow-grilled charcoal chicken infused with authentic aromatic spices.</p>
             <span class="price">₹ 189</span>
           </article>
           <!-- Card 2 -->
           <article class="menu-card reveal-item">
-            <svg class="menu-card-icon illust-svg" viewBox="0 0 36 36" aria-hidden="true">
-              <path d="M8 14 L28 14 L26 30 C25.5 32, 24 33, 22 33 L14 33 C12 33, 10.5 32, 10 30 Z"/>
-              <ellipse class="accent-fill" cx="18" cy="16" rx="8" ry="2" opacity="0.4"/>
-            </svg>
             <h3>Peri Peri Alfaham</h3>
             <p class="desc">Fiery peri-peri marinated chicken flame-grilled over glowing embers.</p>
             <span class="price">₹ 199</span>
           </article>
           <!-- Card 3 -->
           <article class="menu-card reveal-item">
-            <svg class="menu-card-icon illust-svg" viewBox="0 0 36 36" aria-hidden="true">
-              <path d="M6 20 C6 14, 10 10, 18 10 C26 10, 30 14, 30 20 Z"/>
-            </svg>
             <h3>Pepper Alfaham</h3>
             <p class="desc">Bold crushed black pepper rub, flame-kissed, tender, and juicy.</p>
             <span class="price">₹ 199</span>
           </article>
           <!-- Card 4 -->
           <article class="menu-card reveal-item">
-            <svg class="menu-card-icon illust-svg" viewBox="0 0 36 36" aria-hidden="true">
-              <path d="M8 28 C8 28, 10 14, 18 14 C26 14, 28 28, 28 28"/>
-            </svg>
             <h3>BBQ Alfaham</h3>
             <p class="desc">Smoky barbecue glaze over rich, tender, spiced grilled chicken.</p>
             <span class="price">₹ 199</span>
           </article>
           <!-- Card 5 -->
           <article class="menu-card reveal-item">
-            <svg class="menu-card-icon illust-svg" viewBox="0 0 36 36" aria-hidden="true">
-              <path d="M10 30 L10 12 C10 10, 12 8, 14 8 L22 8 C24 8, 26 10, 26 12 L26 30"/>
-            </svg>
             <h3>Chicken Mandhi</h3>
             <p class="desc">Fragrant long-grain Mandhi rice topped with tender, seasoned roast chicken.</p>
             <span class="price">₹ 219</span>
           </article>
           <!-- Card 6 -->
           <article class="menu-card reveal-item">
-            <svg class="menu-card-icon illust-svg" viewBox="0 0 36 36" aria-hidden="true">
-              <path d="M8 26 C8 18, 12 12, 18 12 C24 12, 28 18, 28 26"/>
-            </svg>
             <h3>Alfaham Mandhi</h3>
             <p class="desc">Traditional Yemeni-style Mandhi rice served with smoky grilled Alfaham chicken.</p>
             <span class="price">₹ 239</span>
           </article>
           <!-- Card 7 -->
           <article class="menu-card reveal-item">
-            <svg class="menu-card-icon illust-svg" viewBox="0 0 36 36" aria-hidden="true">
-              <path d="M10 28 C10 28, 8 16, 18 12 C28 16, 26 28, 26 28"/>
-            </svg>
             <h3>Paal Kappa with Beef Roast</h3>
             <p class="desc">Creamy coconut tapioca paired with slow-cooked spicy Kerala beef roast.</p>
             <span class="price">₹ 229</span>
           </article>
           <!-- Card 8 -->
           <article class="menu-card reveal-item">
-            <svg class="menu-card-icon illust-svg" viewBox="0 0 36 36" aria-hidden="true">
-              <ellipse cx="18" cy="22" rx="12" ry="8"/>
-            </svg>
             <h3>Pidi &amp; Kozhi Curry</h3>
             <p class="desc">Traditional steamed rice dumplings served in rich, fragrant chicken curry.</p>
             <span class="price">₹ 229</span>
           </article>
           <!-- Card 9 -->
           <article class="menu-card reveal-item">
-            <svg class="menu-card-icon illust-svg" viewBox="0 0 36 36" aria-hidden="true">
-              <path d="M6 20 C6 14, 10 10, 18 10 C26 10, 30 14, 30 20 Z"/>
-            </svg>
             <h3>Pathiri with Beef Roast</h3>
             <p class="desc">Thin, delicate Malabar rice flatbreads paired with succulent roasted beef.</p>
             <span class="price">₹ 219</span>
           </article>
           <!-- Card 10 -->
           <article class="menu-card reveal-item">
-            <svg class="menu-card-icon illust-svg" viewBox="0 0 36 36" aria-hidden="true">
-              <ellipse cx="18" cy="22" rx="12" ry="8"/>
-            </svg>
             <h3>Bread &amp; Chicken Stew</h3>
             <p class="desc">Soft bread slices served with mild, creamy coconut milk chicken stew.</p>
             <span class="price">₹ 199</span>
@@ -1568,638 +864,23 @@ z"/>
           <h2>A Few Sketches</h2>
         </div>
         <div class="gallery-strip" role="list" aria-label="Illustrated mood tiles">
-          <div class="gallery-tile" role="listitem">
-            <svg class="illust-svg gallery-custom-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="100%" viewBox="0 0 1024 1024" enable-background="new 0 0 1024 1024" xml:space="preserve">
-<path fill="var(--ink)" opacity="1.000000" stroke="none" 
-	d="
-M485.034729,761.193787 
-	C460.491974,759.328125 436.417633,757.619324 412.369293,755.600464 
-	C394.073761,754.064575 375.766388,754.150818 357.440216,754.310303 
-	C349.798920,754.376770 342.117737,754.991272 334.533081,753.304077 
-	C328.311676,751.920166 324.372467,748.278259 323.609589,741.900269 
-	C322.266541,730.671814 320.983459,719.428345 320.058655,708.159668 
-	C318.710571,691.733459 317.284454,675.258118 318.095856,658.783691 
-	C319.064056,639.125671 319.106964,619.466248 318.504669,599.836731 
-	C317.778748,576.178772 317.314148,552.522095 317.979736,528.881104 
-	C318.813263,499.274506 319.792633,469.670532 322.451660,440.131378 
-	C324.798889,414.055573 323.138092,387.848785 323.714752,361.710144 
-	C324.340210,333.359344 322.613495,305.119690 320.765137,276.869873 
-	C320.623932,274.711884 320.650696,272.537750 320.700287,270.373413 
-	C320.927734,260.446503 327.073639,255.841507 336.737030,258.418549 
-	C343.150940,260.129028 348.443695,264.071716 353.732666,267.764709 
-	C359.251007,271.617859 364.504211,272.187653 370.527252,269.265503 
-	C382.214539,263.595245 394.044189,258.219025 405.755157,252.596680 
-	C409.643890,250.729736 412.830780,251.015762 416.991577,252.817780 
-	C426.444061,256.911591 434.024445,263.288483 441.037201,270.386169 
-	C446.386322,275.800049 451.799469,276.825439 458.583008,273.680817 
-	C462.489594,271.869873 466.741425,270.811768 470.815948,269.353516 
-	C480.511108,265.883636 489.156006,268.146606 497.133179,274.110229 
-	C498.333527,275.007629 499.493866,275.959930 500.652130,276.911896 
-	C511.149506,285.539398 511.436554,285.540131 523.349182,278.590973 
-	C529.534973,274.982574 535.720398,271.366302 542.009399,267.943787 
-	C550.928101,263.090179 559.865479,263.298157 568.663086,268.376129 
-	C573.999390,271.456238 579.374390,274.476349 584.615601,277.712067 
-	C588.798767,280.294586 592.722778,280.117615 596.774170,277.511871 
-	C605.740479,271.744843 614.676270,265.924713 623.762390,260.350983 
-	C632.751282,254.836868 637.815918,255.314774 645.952332,262.154022 
-	C650.031311,265.582764 654.025330,269.125244 657.887756,272.795227 
-	C661.473572,276.202454 664.917603,276.509705 669.033264,273.612640 
-	C674.206177,269.971405 679.617126,266.664703 684.970764,263.285675 
-	C686.937805,262.044159 688.958008,260.832275 691.084961,259.908417 
-	C701.154541,255.534500 706.712219,259.070251 707.416748,269.971344 
-	C709.332886,299.617371 708.003662,329.224609 706.594849,358.837952 
-	C705.772339,376.127899 704.930664,393.420380 704.433777,410.721375 
-	C703.879211,430.030670 701.773926,449.295227 702.327209,468.625092 
-	C703.179993,498.420319 703.639771,528.254578 705.607971,557.983459 
-	C708.407410,600.268921 707.582581,642.509338 706.375549,684.784119 
-	C705.762329,706.261230 703.542664,727.635010 702.284668,749.070618 
-	C701.962830,754.555542 699.040833,758.026245 692.925354,759.138855 
-	C685.895874,760.417725 678.776184,761.393372 671.652710,761.929321 
-	C640.758789,764.253296 609.801819,766.855469 578.841248,764.862793 
-	C547.746521,762.861450 516.602295,762.909607 485.034729,761.193787 
-M695.744629,313.497345 
-	C695.680969,300.309998 695.617249,287.122681 695.553040,273.816711 
-	C691.900146,274.040314 690.338074,275.686554 688.543518,276.798187 
-	C683.164062,280.130585 677.972717,283.788635 672.462463,286.882324 
-	C665.570312,290.751892 658.710754,290.433167 652.449707,285.270447 
-	C648.466797,281.986145 644.576782,278.586304 640.708374,275.166626 
-	C634.153259,269.371918 634.176270,269.351196 626.715271,274.148010 
-	C619.429138,278.832336 612.133850,283.502258 604.850952,288.191589 
-	C595.373291,294.294098 585.929260,294.724915 576.328491,288.348969 
-	C572.449524,285.772949 568.222839,283.725586 564.294373,281.218262 
-	C557.835815,277.096130 551.710754,277.193237 545.145386,281.310364 
-	C537.393860,286.171417 529.388489,290.664062 521.279602,294.908478 
-	C513.637024,298.908936 506.187714,298.161316 499.334229,292.654846 
-	C495.828796,289.838318 492.238464,287.124481 488.631317,284.438324 
-	C484.166656,281.113678 479.340668,280.262451 474.020660,282.291748 
-	C469.355133,284.071381 464.576508,285.554138 459.907257,287.324799 
-	C450.148621,291.025482 441.699371,289.060272 434.134064,281.973999 
-	C429.398376,277.538147 424.447998,273.316895 419.421234,269.210815 
-	C415.105072,265.685211 410.588654,264.819550 405.169922,267.646393 
-	C395.579926,272.649292 385.687866,277.076935 375.889923,281.676392 
-	C366.227936,286.212006 356.890228,285.751282 347.920471,279.728638 
-	C345.156555,277.872803 342.283844,276.172363 339.404419,274.497955 
-	C337.882660,273.613068 336.342285,271.875580 334.462250,272.970428 
-	C332.575745,274.069061 333.421844,276.288879 333.334229,278.046143 
-	C333.259918,279.536682 333.393860,281.041504 333.493164,282.536194 
-	C334.364563,295.653839 335.777161,308.761139 336.014435,321.889832 
-	C336.447937,345.875061 336.048309,369.874115 336.271362,393.864838 
-	C336.400024,407.701630 336.219727,421.530182 335.099823,435.303070 
-	C332.305786,469.666565 331.180145,504.103516 330.391174,538.546692 
-	C329.979401,556.523621 330.197845,574.520142 330.819031,592.514893 
-	C331.588837,614.816345 331.371826,637.119995 330.537262,659.448303 
-	C329.616089,684.092834 332.654083,708.624146 335.091400,733.124451 
-	C335.942383,741.678467 336.294861,741.935059 344.839569,741.783936 
-	C378.340424,741.191284 411.744080,742.326050 445.116730,745.573242 
-	C474.785004,748.460022 504.550720,749.739258 534.391541,750.077087 
-	C565.160767,750.425537 595.844604,754.276123 626.711060,751.951843 
-	C645.957947,750.502563 665.291992,750.313843 684.488403,747.940186 
-	C688.395142,747.457092 690.133057,745.825745 690.369263,742.075012 
-	C690.766541,735.766663 691.319031,729.467773 691.684143,723.157837 
-	C692.463196,709.697083 693.342651,696.244202 694.007385,682.773926 
-	C695.230835,657.979980 695.118774,633.165588 695.229553,608.375793 
-	C695.332092,585.430603 693.770996,562.468567 692.603821,539.531189 
-	C692.036621,528.383972 692.442871,517.179749 691.425354,506.100433 
-	C689.102478,480.804688 689.432739,455.537476 690.994263,430.257690 
-	C693.375977,391.701599 694.744629,353.108093 695.744629,313.497345 
-z"/>
-<path fill="var(--ink)" opacity="1.000000" stroke="none" 
-	d="
-M639.870300,715.112915 
-	C614.452942,725.038330 589.912109,711.182556 586.493408,684.717957 
-	C583.594543,662.276855 601.582764,643.422302 622.555969,642.260315 
-	C642.554565,641.152344 660.886963,657.704285 661.357910,678.236145 
-	C661.738281,694.818054 654.797241,707.049744 639.870300,715.112915 
-z"/>
-<path fill="var(--ink)" opacity="1.000000" stroke="none" 
-	d="
-M582.534729,399.494171 
-	C600.139221,398.324158 617.298035,399.016083 634.447632,398.991241 
-	C639.226868,398.984314 642.331360,402.114197 642.159912,405.811188 
-	C641.981812,409.653107 638.338745,412.380127 633.430603,412.075623 
-	C600.951111,410.060394 568.564453,413.242645 536.130554,413.724548 
-	C527.311768,413.855560 518.486145,413.466431 509.665253,413.531799 
-	C471.542480,413.814301 433.448425,416.170990 395.306427,415.121826 
-	C391.977020,415.030243 388.644379,415.019531 385.317749,414.870758 
-	C379.883972,414.627747 376.821106,412.247620 376.806885,408.370819 
-	C376.791962,404.286804 380.139343,401.673553 385.857727,402.120850 
-	C392.347168,402.628448 398.829376,402.565338 405.317047,402.727386 
-	C436.633301,403.509460 467.914154,401.305145 499.219574,401.621582 
-	C519.374512,401.825317 539.501892,400.967377 559.641479,400.601929 
-	C567.121704,400.466248 574.594482,399.917572 582.534729,399.494171 
-z"/>
-<path fill="var(--ink)" opacity="1.000000" stroke="none" 
-	d="
-M609.996277,480.892883 
-	C614.658752,480.923798 618.829651,480.810242 622.984314,481.019104 
-	C628.310242,481.286835 631.425049,484.005920 631.185791,487.834747 
-	C630.944641,491.693634 627.598511,494.425964 622.409973,494.027100 
-	C605.423401,492.721375 588.473145,494.198273 571.508484,494.348114 
-	C514.063416,494.855499 456.621185,494.223236 399.178101,493.987152 
-	C394.522827,493.968018 389.868896,493.565979 385.214752,493.333557 
-	C381.476013,493.146820 379.189880,491.080078 378.976929,487.469910 
-	C378.772339,484.001801 381.015503,481.948212 384.326691,481.264465 
-	C385.774902,480.965454 387.309601,480.926941 388.795410,480.991425 
-	C432.079865,482.871338 475.401978,480.865814 518.678894,482.114136 
-	C548.994629,482.988617 579.225586,481.218231 609.996277,480.892883 
-z"/>
-<path fill="var(--ink)" opacity="1.000000" stroke="none" 
-	d="
-M475.998688,555.714844 
-	C488.147705,555.709045 499.796661,555.702271 511.445648,555.700134 
-	C512.610352,555.699951 513.787720,555.623657 514.937561,555.762268 
-	C518.933960,556.243958 522.096313,557.846130 522.208130,562.432007 
-	C522.299316,566.174011 518.809204,568.730774 514.023865,568.465942 
-	C496.057495,567.471558 478.082001,567.911926 460.133728,568.559692 
-	C442.848267,569.183655 425.570312,569.914856 408.273041,569.893372 
-	C401.791168,569.885376 395.307587,569.550964 388.828888,569.270020 
-	C384.219635,569.070190 381.201874,566.466370 381.503906,562.858398 
-	C381.868164,558.506897 384.933929,556.866333 388.771301,556.902344 
-	C395.747375,556.967896 402.727753,557.751282 409.692749,557.601807 
-	C431.631439,557.131042 453.563843,556.366272 475.998688,555.714844 
-z"/>
-</svg>
+          <div class="gallery-tile" role="listitem" onclick="openLightbox(0)" aria-label="View venue photo 1">
+            <img src="assets/images/vibe1.jpg" alt="Shipping Container Cafe Structure" class="gallery-sketch-img" loading="lazy">
           </div>
-          <div class="gallery-tile" role="listitem">
-            <svg class="illust-svg gallery-custom-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="100%" viewBox="0 0 1254 1254" enable-background="new 0 0 1254 1254" xml:space="preserve">
-<path fill="none" opacity="1.000000" stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.000000"
-	d="
-M887.000000,223.500000 
-	C888.384644,230.102570 884.085510,234.573730 881.000000,239.500000 
-"/>
-<path fill="none" opacity="1.000000" stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="11.000000"
-	d="
-M834.500000,331.000000 
-	C830.526672,340.275421 827.615356,349.920868 824.475342,359.491913 
-	C818.473206,377.786957 811.603638,395.752075 802.933411,412.966461 
-	C801.215088,416.378326 800.474426,419.795502 800.500000,423.500000 
-"/>
-<path fill="none" opacity="1.000000" stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="13.000000"
-	d="
-M728.500000,603.500000 
-	C709.312561,603.795227 690.193665,601.110657 671.002319,602.047791 
-	C659.997620,602.585083 648.985229,602.900696 637.987610,603.857788 
-	C629.716919,604.577454 621.333313,604.000000 613.000000,604.000000 
-	C581.333313,604.000000 549.666626,603.974426 518.000061,604.022583 
-	C511.999786,604.031677 506.000000,604.333313 500.000000,604.500000 
-"/>
-<path fill="none" opacity="1.000000" stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="15.000000"
-	d="
-M791.500000,429.000000 
-	C790.080383,439.292633 781.784363,446.584717 779.550659,456.464539 
-	C777.500000,456.745026 775.574951,457.684082 773.488037,456.521423 
-	C757.937927,447.858246 741.444397,445.950531 723.978882,448.873688 
-	C714.096069,450.527710 703.990417,450.163879 694.003235,448.972717 
-	C686.923645,448.128387 679.923462,449.394958 673.021545,450.187531 
-	C656.161743,452.123657 639.554443,451.014587 623.006348,447.965576 
-	C605.200317,444.684814 587.655579,444.175751 569.958801,449.359253 
-	C554.027100,454.025665 537.704956,452.956848 521.498291,450.009552 
-	C507.188171,447.407135 493.097626,448.833832 478.978302,451.900085 
-	C469.481232,453.962555 459.759155,454.715179 450.005249,455.125061 
-	C445.017578,455.334686 439.985687,455.673248 434.971832,456.259033 
-	C426.188873,457.285126 422.309357,462.090637 421.669617,471.511505 
-	C421.252045,477.661163 420.030640,483.764221 420.457397,490.002899 
-	C421.425873,504.160309 421.947601,518.350830 423.078156,532.493774 
-	C423.813568,541.693604 423.495850,550.843323 422.865479,559.990723 
-	C422.752289,561.633362 422.514343,563.347412 422.538513,564.999451 
-	C422.880219,588.364014 421.404785,611.675781 420.805298,635.007874 
-	C420.451721,648.768677 420.334930,662.678833 421.852112,676.516235 
-	C422.811096,685.262634 422.029144,694.185852 422.584595,702.994690 
-	C423.152710,712.004211 422.448761,720.990417 422.800049,730.007812 
-	C423.272766,742.143066 422.518463,754.341980 421.947937,766.497559 
-	C421.376984,778.662354 420.724060,790.829651 421.057892,802.998413 
-	C421.511230,819.525330 419.346893,835.982544 420.011810,852.499512 
-	C420.649597,868.342468 422.299988,884.121033 422.755493,899.992676 
-	C422.935120,906.251709 423.314911,912.744995 424.932007,919.017517 
-	C426.935516,926.788757 432.134552,931.307312 439.522369,932.339844 
-	C450.918488,933.932556 462.323029,934.860107 474.028107,933.814697 
-	C484.967072,932.837769 496.002289,932.029541 506.980560,931.232483 
-	C516.496216,930.541565 526.015320,930.496887 535.506042,930.181458 
-	C550.816895,929.672668 566.188721,929.918579 581.487671,930.731567 
-	C586.641541,931.005432 591.825989,931.334656 597.000549,931.481567 
-	C610.665649,931.869507 624.342651,932.649780 637.997803,932.386475 
-	C658.334229,931.994507 678.627808,929.766235 698.998840,930.530334 
-	C716.832153,931.199219 734.625854,933.084229 752.498779,932.464172 
-	C761.064209,932.167053 769.654907,931.332764 777.971863,929.380188 
-	C789.006165,926.789795 794.248047,918.423828 796.442749,907.987976 
-	C798.031494,900.433228 798.543518,892.727417 799.118286,885.008789 
-	C800.372131,868.170959 800.467712,851.273926 802.802551,834.472595 
-	C804.519226,822.119751 804.350281,809.545471 803.646057,796.991821 
-	C803.087341,787.032471 803.799866,776.999329 804.006897,767.000122 
-	C804.466675,744.798462 801.766846,722.690491 802.036499,700.500427 
-	C802.149902,691.164429 803.037659,681.828613 802.919373,672.501038 
-	C802.701538,655.330750 801.695251,638.168518 801.590393,620.999451 
-	C801.495728,605.502075 801.806641,589.981750 802.592163,574.504700 
-	C803.549622,555.638245 802.769104,536.798523 801.780029,518.011597 
-	C801.034119,503.842438 801.332764,489.633118 799.978577,475.502045 
-	C799.409363,469.562866 797.207397,464.759094 791.027527,462.427063 
-	C787.212280,460.987366 783.666687,458.833344 780.000000,457.000000 
-"/>
-<path fill="none" opacity="1.000000" stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="5.000000"
-	d="
-M745.500000,291.500000 
-	C745.275513,296.676300 745.844543,301.720367 748.000000,306.500000 
-"/>
-<path fill="none" opacity="1.000000" stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="12.000000"
-	d="
-M778.000000,400.500000 
-	C780.389343,407.539520 784.554199,413.914337 785.612793,421.484222 
-	C785.837769,423.092621 787.521790,424.486023 788.494446,426.003571 
-	C789.695435,427.877533 791.359863,429.698273 793.440247,427.929688 
-	C799.898193,422.439697 808.453674,424.851929 815.560608,421.633789 
-	C820.751038,419.283478 826.500000,418.166656 832.000000,416.499969 
-"/>
-<path fill="none" opacity="1.000000" stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="14.000000"
-	d="
-M717.000000,689.000000 
-	C702.150574,688.978271 687.305725,687.576294 672.501831,687.707825 
-	C643.002319,687.970032 613.532043,690.027283 583.998657,689.592163 
-	C576.341003,689.479309 568.668518,690.532593 560.997742,690.959106 
-	C560.027405,691.013062 558.853821,691.543823 558.000000,690.500000 
-"/>
-<path fill="none" opacity="1.000000" stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="11.000000"
-	d="
-M775.000000,458.000000 
-	C771.662109,467.469818 764.879333,474.771576 758.868042,482.395935 
-	C748.053955,496.111847 736.041687,508.822876 722.978699,520.476074 
-	C721.473083,521.819153 720.053772,523.761047 717.500000,522.750000 
-"/>
-<path fill="none" opacity="1.000000" stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="15.000000"
-	d="
-M709.000000,773.500000 
-	C709.336914,775.629456 707.804932,775.525269 706.500488,775.484253 
-	C696.832886,775.179993 687.132751,775.217896 677.511597,774.368591 
-	C670.784790,773.774780 664.152832,774.191650 657.503052,774.556152 
-	C645.992004,775.187134 634.487183,776.990845 623.002930,776.812683 
-	C604.337097,776.523132 585.673218,775.815186 567.000488,776.038757 
-	C557.831116,776.148499 548.663696,776.992004 539.500854,776.908508 
-	C530.330322,776.825073 521.169678,775.931519 511.998657,775.530823 
-	C507.839935,775.349060 503.666656,775.500000 499.500000,775.500000 
-"/>
-<path fill="none" opacity="1.000000" stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="13.000000"
-	d="
-M557.500000,690.500000 
-	C548.036560,692.750610 538.495422,690.891602 528.999878,690.904419 
-	C519.167114,690.917664 509.333344,690.166687 499.500000,689.750061 
-"/>
-<path fill="none" opacity="1.000000" stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.000000"
-	d="
-M722.500000,597.500000 
-	C722.500000,599.333313 722.500000,601.166687 722.500000,603.000000 
-"/>
-</svg>
+          <div class="gallery-tile" role="listitem" onclick="openLightbox(1)" aria-label="View venue photo 2">
+            <img src="assets/images/vibe2.jpg" alt="Misty Deck &amp; Wall Mural" class="gallery-sketch-img" loading="lazy">
           </div>
-          <div class="gallery-tile" role="listitem">
-            <svg class="illust-svg gallery-custom-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="100%" viewBox="0 0 1024 1024" enable-background="new 0 0 1024 1024" xml:space="preserve">
-<path fill="var(--ink)" opacity="1.000000" stroke="none" 
-	d="
-M503.168213,890.081970 
-	C465.953430,887.479980 431.239075,877.297546 398.747528,860.310303 
-	C358.633148,839.337769 328.650116,808.510925 310.610413,766.426880 
-	C295.385437,730.909180 285.947479,693.965820 281.933990,655.642212 
-	C277.277344,611.177002 284.130981,567.965576 298.111633,525.846802 
-	C310.746979,487.781006 328.549866,452.221466 354.012390,421.002411 
-	C382.727417,385.795410 416.591461,356.537262 456.802032,334.946198 
-	C461.640503,332.348145 466.303589,329.420471 471.019897,326.598633 
-	C476.730865,323.181732 477.715454,319.414490 474.579529,313.384003 
-	C472.966858,310.282776 471.350708,307.181793 469.821075,304.039337 
-	C467.841858,299.973236 467.337097,295.915222 471.216431,292.678375 
-	C475.064697,289.467468 478.745178,291.250793 482.134277,293.741028 
-	C486.762146,297.141510 491.841248,299.543457 497.359558,301.066132 
-	C499.119415,301.551758 500.868439,302.128845 503.118561,301.149933 
-	C504.380127,292.643372 501.681519,284.184113 501.609161,275.646942 
-	C501.518616,264.967255 497.518768,259.715912 486.362183,257.080200 
-	C467.330872,252.584091 451.638916,241.968857 441.685699,224.333389 
-	C434.746399,212.038132 431.989899,198.553818 430.775940,184.695465 
-	C430.349274,179.824493 433.197540,177.135162 439.046997,176.912857 
-	C459.283142,176.143829 476.254456,183.018906 489.152710,198.962875 
-	C497.276031,209.004379 502.014679,220.670242 505.185699,233.058899 
-	C505.703033,235.080032 506.270477,237.088379 507.120026,240.232452 
-	C510.232086,216.548065 515.186523,194.632675 523.385071,173.438751 
-	C538.705200,133.834747 565.794800,107.563614 607.715759,97.713478 
-	C614.197144,96.190529 620.697815,94.730499 627.230408,93.449829 
-	C632.600281,92.397110 636.830811,95.212265 637.134644,100.534012 
-	C639.325134,138.898621 630.157593,173.671295 603.227905,202.215759 
-	C590.537354,215.667343 574.210083,223.815918 557.227539,230.645721 
-	C546.705688,234.877228 535.977539,238.486908 524.965942,241.157257 
-	C521.035950,242.110291 519.396484,243.728378 518.893066,248.065659 
-	C517.066528,263.802856 515.871277,279.544189 516.217712,295.386688 
-	C516.360535,301.917847 517.587219,302.973511 523.736145,301.028656 
-	C532.460449,298.269287 541.020508,294.992676 549.733459,292.194641 
-	C555.571899,290.319672 561.525696,289.991943 567.313293,292.662354 
-	C574.783508,296.109070 577.426819,302.838989 574.321289,310.462372 
-	C572.718567,314.396790 570.113159,317.648346 567.159668,320.607239 
-	C564.544495,323.227234 564.894958,325.529999 567.481384,327.834015 
-	C571.874023,331.747009 577.066284,334.461517 582.106812,337.351318 
-	C625.586365,362.278595 659.894653,396.870605 685.761902,439.318573 
-	C704.930786,470.774597 719.410706,504.690369 730.408875,539.991638 
-	C737.913513,564.079712 743.402649,588.564697 744.954285,613.753052 
-	C745.936829,629.703064 745.384216,645.692688 744.462952,661.689758 
-	C743.377808,680.530090 741.260559,699.179016 737.273987,717.600098 
-	C730.259338,750.012817 717.902710,780.188599 698.976685,807.541321 
-	C675.431458,841.569702 642.882446,863.461914 604.434204,877.218445 
-	C581.701965,885.351990 558.158630,889.312744 534.049438,890.617676 
-	C523.848877,891.169739 513.763428,890.713989 503.168213,890.081970 
-M502.684906,333.169342 
-	C501.045807,332.883759 499.322632,332.830750 497.781647,332.273743 
-	C489.660950,329.338409 482.480774,330.152557 476.353394,336.829803 
-	C474.937714,338.372559 472.823395,339.322693 470.936615,340.377502 
-	C436.541504,359.605713 405.174286,382.661133 378.613617,412.049622 
-	C367.192688,424.686523 356.247833,437.636414 347.190491,452.055634 
-	C322.668060,491.095428 305.624664,533.043152 297.663483,578.637634 
-	C292.725891,606.915527 291.498657,635.235229 295.531952,663.609314 
-	C300.157471,696.149536 307.680267,727.990112 320.897186,758.291138 
-	C328.053253,774.697083 336.091125,790.596863 347.799683,804.243591 
-	C365.921631,825.365479 387.435760,842.128296 412.828186,853.857300 
-	C445.731995,869.055969 480.050812,878.131104 516.430359,878.764954 
-	C533.617065,879.064392 550.671509,877.891174 567.598450,874.732361 
-	C604.956055,867.760864 638.523926,852.770386 666.453735,826.725769 
-	C693.287903,801.702698 709.468140,769.994080 719.267639,735.203369 
-	C730.208008,696.362000 733.862244,656.549316 731.850952,616.176636 
-	C730.588440,590.834473 724.641907,566.493164 717.253540,542.460938 
-	C710.889587,521.760742 702.156372,501.953644 693.406555,482.135925 
-	C676.091675,442.918762 650.974548,409.634674 619.540527,380.723938 
-	C604.957275,367.311310 588.285339,356.977905 572.019226,345.972931 
-	C565.710327,341.704590 559.099976,337.659027 555.303223,330.561371 
-	C553.444885,327.087402 553.082397,323.933441 554.941772,320.170715 
-	C556.839172,316.331116 559.816956,313.468750 562.258606,310.131897 
-	C563.491882,308.446472 565.518738,306.783844 564.162354,304.394440 
-	C562.954712,302.267273 560.554932,302.109894 558.393616,302.109741 
-	C553.822388,302.109406 549.543884,303.448273 545.399170,305.306183 
-	C530.614563,311.933411 515.515686,316.870514 498.998688,313.219971 
-	C494.685181,312.266571 490.455811,310.932159 485.524445,309.592560 
-	C487.264404,313.635223 486.409637,318.405212 491.679779,319.436615 
-	C503.136963,321.678802 514.623718,323.402924 526.378540,322.221954 
-	C532.007751,321.656464 537.633484,321.302734 543.174438,319.972870 
-	C546.532593,319.166809 549.921326,320.047333 550.901611,323.668335 
-	C551.869873,327.245056 548.906128,328.962128 546.020752,330.177460 
-	C544.802979,330.690369 543.494690,331.001221 542.211365,331.343292 
-	C529.469604,334.739807 516.568054,334.956787 502.684906,333.169342 
-z"/>
-<path fill="var(--ink)" opacity="1.000000" stroke="none" 
-	d="
-M329.432983,604.025085 
-	C332.428162,603.446899 334.504578,604.318787 335.662537,606.681274 
-	C337.399536,610.225159 334.989532,612.634216 332.572388,615.319214 
-	C336.249573,620.215637 340.595306,624.307617 345.108398,628.126160 
-	C379.559387,657.275330 418.852600,676.962097 462.828552,686.886108 
-	C513.285095,698.272461 562.271851,693.654480 609.782837,672.650208 
-	C639.565735,659.483459 667.307312,643.324707 691.499695,621.382507 
-	C694.333069,618.812683 697.031433,616.094055 699.791748,613.443787 
-	C702.353333,610.984253 704.774597,608.661621 703.151184,604.416199 
-	C702.442017,602.561768 703.683289,600.477112 705.477417,599.271118 
-	C707.423340,597.963074 709.433533,598.502258 711.027100,599.871704 
-	C716.411987,604.499207 718.625061,610.856445 719.009888,617.560181 
-	C719.282898,622.317200 714.802734,623.589783 708.682129,620.815063 
-	C686.219727,644.239319 659.661194,662.124817 630.526611,676.215515 
-	C606.026123,688.065063 580.662720,697.617371 553.677795,702.216492 
-	C532.203491,705.876465 510.705170,705.826111 489.032776,703.572876 
-	C453.213684,699.848877 419.765839,688.804932 388.135193,672.071777 
-	C365.058533,659.863770 343.699158,645.148376 325.951141,625.704712 
-	C324.463074,624.074402 323.235077,622.932922 320.949860,624.619019 
-	C318.768829,626.228149 316.250610,626.583496 314.165283,624.358643 
-	C312.041565,622.092896 312.297211,619.431763 313.690613,616.934265 
-	C317.156708,610.721863 322.267639,606.411316 329.432983,604.025085 
-z"/>
-</svg>
+          <div class="gallery-tile" role="listitem" onclick="openLightbox(2)" aria-label="View venue photo 3">
+            <img src="assets/images/vibe3.jpg" alt="Entrance &amp; Planeat Logo" class="gallery-sketch-img" loading="lazy">
           </div>
-          <div class="gallery-tile" role="listitem">
-            <svg class="illust-svg gallery-custom-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="100%" viewBox="0 0 1024 1024" enable-background="new 0 0 1024 1024" xml:space="preserve">
-<path fill="var(--ink)" opacity="1.000000" stroke="none" 
-	d="
-M526.000122,729.235474 
-	C503.262970,735.308411 481.178497,735.478882 459.552917,726.294556 
-	C457.348602,725.358398 455.464417,725.527039 453.342529,726.373901 
-	C446.775421,728.994751 441.997040,733.789124 437.422943,738.936707 
-	C431.136780,746.011108 423.712128,751.005737 413.821320,751.342285 
-	C403.451416,751.695068 396.051270,746.398926 390.160919,738.661194 
-	C383.336395,729.696228 379.098999,719.687195 379.631989,708.128052 
-	C379.739594,705.794312 379.303894,704.033203 377.017151,702.737793 
-	C358.015686,691.973877 345.830444,674.993896 335.550201,656.456299 
-	C319.257141,627.076416 313.880981,595.192932 314.789581,562.008789 
-	C315.997253,517.902344 326.708282,476.073761 345.931488,436.474518 
-	C375.256042,376.066742 417.213287,326.606079 474.318207,290.659027 
-	C501.242493,273.710449 530.464417,262.821350 562.482422,261.418640 
-	C582.489197,260.542145 602.059204,263.473175 619.776672,273.921051 
-	C625.362732,277.215118 629.932129,281.513245 632.253296,287.739960 
-	C633.088684,289.980865 634.499939,290.767181 636.800537,290.712433 
-	C650.896301,290.376831 662.446472,296.360626 671.887695,306.164429 
-	C694.513977,329.659729 708.985291,357.540833 715.291931,389.597839 
-	C718.544617,406.131165 720.528564,422.806824 720.224792,439.672485 
-	C719.784790,464.109711 715.470154,488.007629 709.247437,511.554230 
-	C697.032715,557.774658 678.861755,601.389587 651.817871,641.057617 
-	C630.197205,672.770813 600.156921,694.441223 566.896667,712.235229 
-	C553.952271,719.160461 540.562195,725.099731 526.000122,729.235474 
-M578.078552,689.562439 
-	C600.089966,676.030823 620.307068,660.416077 635.955261,639.531311 
-	C653.157227,616.572815 666.190979,591.313171 676.959717,564.826233 
-	C696.376221,517.069336 707.741638,467.904877 703.826599,415.874023 
-	C701.116211,379.852661 687.761963,348.487915 664.273926,321.278198 
-	C659.541321,315.795654 653.916687,311.388031 647.134949,308.626465 
-	C637.460632,304.686951 628.678345,306.901459 622.187622,315.087433 
-	C617.183960,321.397980 613.749939,328.631561 610.328552,335.873138 
-	C599.132935,359.568909 592.940735,384.726593 588.183960,410.344391 
-	C582.964294,438.455170 573.871155,465.064453 557.360474,488.791290 
-	C546.741943,504.050873 533.988464,517.421570 521.042053,530.624695 
-	C497.469208,554.664856 480.859222,582.662292 471.836395,615.195312 
-	C466.104523,635.862488 458.125366,655.555237 444.714417,672.657410 
-	C439.555756,679.235840 433.538879,684.993652 427.802826,691.029114 
-	C423.494202,695.562622 424.616699,702.575867 429.849884,704.917236 
-	C433.005920,706.329285 436.025543,704.495667 439.097473,704.142090 
-	C448.588776,703.049622 457.482361,704.360962 464.736176,711.041809 
-	C467.185150,713.297424 469.756226,714.722046 472.852997,715.574951 
-	C491.960022,720.837341 510.777863,719.396912 529.346985,713.066345 
-	C546.300720,707.286560 561.999146,698.857788 578.078552,689.562439 
-M443.294159,331.794556 
-	C421.955200,350.362640 403.337891,371.283905 386.904175,394.370178 
-	C365.018188,425.115723 348.702240,458.399872 338.796295,494.737885 
-	C328.419891,532.801697 324.948975,571.381775 333.363190,610.309326 
-	C339.561371,638.984680 353.914673,663.222717 375.715424,682.894592 
-	C382.733215,689.227051 390.806274,693.385376 400.743378,691.681641 
-	C405.881989,690.800598 410.230011,689.180237 411.239258,682.876770 
-	C411.805145,679.342346 413.562378,675.933228 415.136261,672.636414 
-	C424.663239,652.680908 431.139008,631.738342 435.746307,610.160767 
-	C439.429596,592.910645 442.912384,575.617126 450.244598,559.377563 
-	C460.641846,536.349304 476.781616,517.548828 493.994476,499.570892 
-	C522.117737,470.197540 541.726868,436.200043 551.803467,396.641846 
-	C558.152649,371.716949 568.375183,348.504639 584.977295,328.439514 
-	C593.415710,318.240936 602.754333,309.066467 613.438843,301.238708 
-	C618.848022,297.275818 618.896240,293.945862 613.781921,289.646851 
-	C610.822266,287.158966 607.390076,285.459381 603.822632,284.000183 
-	C593.039246,279.589447 581.718750,277.628510 570.181580,277.478119 
-	C550.489502,277.221405 531.479553,280.909424 513.147217,288.257385 
-	C487.487457,298.542328 464.945618,313.766907 443.294159,331.794556 
-M520.819214,489.285614 
-	C512.737427,499.918762 503.525696,509.568970 494.419006,519.291382 
-	C474.110321,540.973145 459.060394,565.435486 452.584778,594.823059 
-	C448.862396,611.715698 445.481964,628.705994 440.232849,645.243347 
-	C438.421783,650.949219 435.567596,656.368530 434.691467,663.074463 
-	C435.516693,662.178223 435.875153,661.846802 436.166443,661.464111 
-	C446.524353,647.857544 452.887878,632.331787 457.584747,616.083130 
-	C464.852661,590.940186 474.759247,567.132874 490.349487,545.822815 
-	C502.324005,529.454956 517.215820,515.799927 530.674988,500.817841 
-	C551.247070,477.918030 565.314575,451.638855 572.013550,421.516724 
-	C575.229370,407.056976 578.234375,392.547699 581.658936,378.137878 
-	C584.790466,364.961609 588.999878,352.091492 593.955322,339.437897 
-	C593.274780,339.808136 592.830872,340.277344 592.439819,340.787140 
-	C577.877747,359.768494 569.426453,381.498413 563.277527,404.388275 
-	C554.975098,435.294769 541.799316,463.869690 520.819214,489.285614 
-z"/>
-</svg>
+          <div class="gallery-tile" role="listitem" onclick="openLightbox(3)" aria-label="View venue photo 4">
+            <img src="assets/images/vibe4.jpg" alt="Balcony &amp; 3D Signboard" class="gallery-sketch-img" loading="lazy">
           </div>
-          <div class="gallery-tile" role="listitem">
-            <svg class="illust-svg gallery-custom-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="100%" viewBox="0 0 1024 1024" enable-background="new 0 0 1024 1024" xml:space="preserve">
-<path fill="var(--ink)" opacity="1.000000" stroke="none" 
-	d="
-M530.460449,315.423706 
-	C520.358459,334.488495 512.348572,354.019165 505.935913,374.219604 
-	C496.493439,403.964111 493.616180,434.334167 496.005005,465.445282 
-	C498.758698,501.308014 506.720276,536.095459 515.993042,570.674744 
-	C516.236267,571.581665 516.541748,572.471802 517.602966,573.362732 
-	C518.968628,564.584900 520.262207,555.795105 521.713928,547.031555 
-	C525.535522,523.962463 533.856079,503.124847 551.562012,486.919220 
-	C564.167908,475.381500 579.370789,468.826996 595.366821,463.722290 
-	C608.068054,459.669006 620.739929,455.549408 632.293335,448.658325 
-	C635.040955,447.019470 638.354248,446.459229 640.638916,448.849609 
-	C643.293274,451.626892 642.876587,455.324738 641.269653,458.707275 
-	C635.821655,470.174835 632.023743,482.256378 627.933350,494.232513 
-	C623.396606,507.515381 617.706482,520.270020 610.295715,532.224731 
-	C598.709229,550.915527 582.320007,563.170776 561.167908,569.179626 
-	C556.373352,570.541626 551.680359,572.293335 547.006714,574.042480 
-	C533.149963,579.228333 527.402832,589.804199 526.189270,604.064575 
-	C525.179321,615.933350 528.382996,627.178162 529.816345,638.677246 
-	C533.592651,668.973511 535.045410,699.290833 533.630981,729.849365 
-	C531.637268,772.919678 521.544373,814.386902 510.633606,855.763367 
-	C509.871338,858.654053 509.103424,861.522217 509.146912,864.589722 
-	C509.237732,870.999817 507.849030,872.589417 502.915436,872.245728 
-	C498.406311,871.931641 495.178802,867.846497 496.164307,863.032776 
-	C497.364594,857.169983 498.969116,851.385925 500.513306,845.598328 
-	C506.177979,824.367798 511.707275,803.092957 515.108398,781.368042 
-	C516.198059,774.407471 518.423950,767.446472 516.695007,760.168518 
-	C513.851196,748.197754 506.438049,740.519592 494.884186,736.964478 
-	C486.139404,734.273682 477.138977,732.414795 468.390991,729.733337 
-	C444.346313,722.363281 427.458435,706.218811 414.454010,685.319214 
-	C407.218750,673.691345 401.684814,661.172729 395.046265,649.238281 
-	C393.267761,646.040894 391.399139,642.887939 389.440247,639.798096 
-	C387.760742,637.148865 387.544189,634.466370 388.999359,631.754639 
-	C390.497620,628.962646 393.155762,627.650146 396.120483,628.077026 
-	C423.577057,632.030823 450.764648,636.953125 474.849274,652.009460 
-	C494.128326,664.061707 505.023499,682.116150 511.362640,703.357483 
-	C514.060974,712.399231 516.447876,721.536621 520.163757,730.639771 
-	C521.982910,728.035400 521.574646,725.529785 521.678650,723.114136 
-	C524.081482,667.286011 514.882690,612.992310 500.235535,559.384521 
-	C492.988190,532.859619 488.014496,505.897186 484.431274,478.607178 
-	C482.383545,463.011688 474.727539,450.391693 459.372467,443.745087 
-	C450.211243,439.779541 440.824310,436.335236 432.174347,431.190704 
-	C407.914062,416.761993 394.203217,395.247162 389.814362,367.745148 
-	C387.142242,351.000793 385.415863,334.106445 383.186829,317.289734 
-	C382.748657,313.983948 383.545349,311.287720 386.386475,309.513885 
-	C389.245972,307.728577 392.357269,307.973145 394.800018,310.090851 
-	C412.066528,325.059753 431.980743,336.620514 448.786743,352.176636 
-	C468.784882,370.687469 481.129364,393.040405 483.474884,420.548401 
-	C484.842987,412.395874 486.188934,404.239563 487.585327,396.091919 
-	C488.993774,387.874115 491.355499,379.893616 493.678284,371.903320 
-	C498.059540,356.832001 503.764862,342.226624 510.525543,328.117432 
-	C517.577271,313.400818 518.592957,298.061676 517.204590,282.296692 
-	C515.525513,263.229645 513.516663,244.264755 517.940796,225.193542 
-	C522.888550,203.864960 532.917603,185.383179 547.354004,169.181534 
-	C559.107117,155.991348 570.877563,142.831024 581.208191,128.463196 
-	C583.307617,125.543327 586.056152,123.683441 589.766357,124.809853 
-	C593.580627,125.967865 595.284729,128.929001 595.317078,132.819092 
-	C595.443298,148.007462 598.488342,162.922043 599.559204,178.011398 
-	C602.591797,220.743698 590.242798,257.320251 555.668457,284.526062 
-	C544.993652,292.925873 536.023682,302.482727 530.460449,315.423706 
-z"/>
-</svg>
+          <div class="gallery-tile" role="listitem" onclick="openLightbox(4)" aria-label="View venue photo 5">
+            <img src="assets/images/vibe5.jpg" alt="Evening Deck with String Lights" class="gallery-sketch-img" loading="lazy">
           </div>
-          <div class="gallery-tile" role="listitem">
-            <svg class="illust-svg gallery-custom-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="100%" viewBox="0 0 1024 1024" enable-background="new 0 0 1024 1024" xml:space="preserve">
-<path fill="var(--ink)" opacity="1.000000" stroke="none" 
-	d="
-M522.079712,291.747498 
-	C563.353027,288.471130 600.960022,300.203552 637.681091,316.122498 
-	C645.778564,319.632874 653.891724,323.107178 661.983826,326.629852 
-	C678.279419,333.723633 693.393066,342.709534 706.723145,354.563354 
-	C726.913330,372.517548 746.332764,391.265350 763.656921,412.022522 
-	C776.582397,427.509491 784.343506,446.141998 793.721741,463.765686 
-	C806.612183,487.989532 817.118835,513.147949 821.729248,540.350830 
-	C826.446960,568.187073 828.746643,596.062500 822.484680,624.115479 
-	C816.181763,652.351929 799.895386,671.423950 772.537354,680.885071 
-	C745.837341,690.118774 718.175354,695.104736 690.345093,699.378174 
-	C664.651978,703.323425 638.795959,705.579590 612.860535,706.798523 
-	C598.890686,707.455078 584.865601,706.877197 570.886780,707.413818 
-	C548.931824,708.256592 526.995911,709.591736 505.049896,710.677612 
-	C490.884735,711.378540 476.735687,710.533447 462.606232,709.803833 
-	C436.342346,708.447571 410.119659,706.297302 384.011139,703.205566 
-	C343.317352,698.386902 302.710297,692.625549 264.425903,677.008118 
-	C240.682922,667.322693 222.683670,651.600159 216.233444,625.416016 
-	C212.505127,610.281250 212.893951,594.958984 214.972366,579.749939 
-	C218.102539,556.844727 221.742783,533.967285 227.272842,511.517426 
-	C235.632568,477.580322 251.381729,447.077118 272.417938,419.252655 
-	C285.786072,401.570770 299.247284,383.966064 315.856171,369.091095 
-	C333.756470,353.059509 354.734070,341.656403 375.367096,329.776184 
-	C389.373688,321.711365 403.799011,314.465057 418.953705,308.691772 
-	C441.307648,300.175873 464.798401,297.514832 488.283844,294.827515 
-	C499.358215,293.560364 510.486908,292.767883 522.079712,291.747498 
-M384.756958,338.302551 
-	C379.554504,341.285736 374.333282,344.236816 369.152802,347.257721 
-	C347.656525,359.792847 326.676636,372.970886 309.933960,391.871887 
-	C299.865479,403.238312 290.608978,415.222046 281.420715,427.287598 
-	C261.382751,453.600311 246.450668,482.506165 238.809143,514.696838 
-	C232.738159,540.271362 228.158127,566.212646 225.572983,592.412659 
-	C224.423065,604.066895 225.390305,615.688965 228.942169,626.997070 
-	C233.839951,642.590271 244.649231,653.051147 258.407562,660.809937 
-	C274.988739,670.160706 293.178192,674.947632 311.603790,679.046448 
-	C341.697937,685.740967 372.045624,690.507324 402.806061,693.033081 
-	C421.711029,694.585449 440.617188,696.166565 459.531830,697.607605 
-	C477.486908,698.975464 495.489044,699.215088 513.470825,698.405457 
-	C532.758667,697.537109 552.014893,695.917969 571.306152,695.188232 
-	C588.118347,694.552246 604.994019,695.300354 621.780762,694.355896 
-	C646.199463,692.981934 670.575317,690.676514 694.728149,686.647766 
-	C719.034485,682.593384 743.256348,678.109314 766.755188,670.415588 
-	C790.631409,662.598328 805.347229,646.692566 810.946777,622.012756 
-	C816.550659,597.313416 814.860291,572.724121 811.100830,548.083618 
-	C806.852417,520.238220 796.513916,494.488831 783.567017,469.711121 
-	C774.936707,453.194397 767.601135,435.841675 755.763367,421.243073 
-	C738.188110,399.568756 717.912720,380.490143 696.956909,362.137115 
-	C691.940857,357.744049 686.674255,353.652374 680.902100,350.261505 
-	C653.016724,333.880127 622.816284,322.867371 592.490295,312.150635 
-	C572.743713,305.172516 552.206970,303.191040 531.494141,303.574921 
-	C516.707092,303.848938 501.977112,305.850311 487.224091,307.054840 
-	C450.977783,310.014252 416.752960,319.109283 384.756958,338.302551 
-z"/>
-<path fill="var(--ink)" opacity="1.000000" stroke="none" 
-	d="
-M294.222839,600.932800 
-	C278.255066,596.475952 262.962830,591.321472 248.127258,584.854187 
-	C246.458160,584.126587 244.818619,583.207092 242.901657,583.346252 
-	C239.778748,583.572876 237.193359,582.679138 236.075668,579.538025 
-	C235.014435,576.555542 235.935135,573.880066 238.333115,571.910889 
-	C240.818680,569.869934 243.677582,569.109863 246.685013,570.801392 
-	C258.824310,577.629150 272.103516,581.518250 285.221924,585.821655 
-	C310.177002,594.008118 335.988647,598.085083 361.895630,601.631165 
-	C382.992706,604.518921 403.999695,608.053772 425.232910,609.973450 
-	C448.800507,612.104370 472.429352,612.392212 496.050995,613.249512 
-	C528.261780,614.418640 560.278015,612.140259 592.313477,609.630005 
-	C647.034607,605.342224 700.535339,595.483887 751.585632,574.529602 
-	C766.220337,568.522583 780.821228,562.442261 794.374268,554.158630 
-	C797.324463,552.355469 800.346191,551.949707 803.178101,554.325500 
-	C805.485046,556.260742 806.882324,558.777649 805.987061,561.836426 
-	C805.009277,565.177124 802.422485,566.462524 799.046448,566.285339 
-	C797.466736,566.202454 796.166992,566.934143 794.824890,567.623108 
-	C745.472107,592.956055 693.267151,609.105103 638.288330,616.448669 
-	C609.737976,620.262146 581.081177,622.716003 552.336365,624.469788 
-	C526.857361,626.024292 501.377502,625.514221 475.913757,624.997986 
-	C437.592255,624.221069 399.602142,619.664062 361.753174,613.719055 
-	C339.234283,610.182129 316.635559,607.171143 294.222839,600.932800 
-z"/>
-</svg>
+          <div class="gallery-tile" role="listitem" onclick="openLightbox(5)" aria-label="View venue photo 6">
+            <img src="assets/images/vibe6.jpg" alt="Container Dining Space" class="gallery-sketch-img" loading="lazy">
           </div>
         </div>
       </div>
@@ -2834,5 +1515,93 @@ M1591.000000,1173.000000
 
     })();
   </script>
+
+    <!-- ===== LIGHTBOX MODAL ===== -->
+  <div id="lightboxModal" class="lightbox-modal" aria-hidden="true" role="dialog" aria-label="Venue photo preview">
+    <div class="lightbox-overlay" onclick="closeLightbox()"></div>
+    <div class="lightbox-content">
+      <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close preview">&times;</button>
+      
+      <div class="lightbox-img-wrapper">
+        <button class="lightbox-nav prev-btn" onclick="navigateLightbox(-1)" aria-label="Previous image">&#10094;</button>
+        <img id="lightboxImg" src="" alt="Planeat Restocafe preview" class="lightbox-img">
+        <button class="lightbox-nav next-btn" onclick="navigateLightbox(1)" aria-label="Next image">&#10095;</button>
+      </div>
+
+      <p id="lightboxCaption" class="lightbox-caption">Planeat Restocafe — Shipping Container Ambience</p>
+    </div>
+  </div>
+
+
+    <!-- Lightbox Gallery Script -->
+  <script>
+    var galleryData = [
+      { src: 'assets/images/vibe1.jpg', fallback: 'images.jpg', title: 'Shipping Container Cafe Structure' },
+      { src: 'assets/images/vibe2.jpg', fallback: 'images (1).jpg', title: 'Misty Deck & Wall Mural' },
+      { src: 'assets/images/vibe3.jpg', fallback: 'images (2).jpg', title: 'Entrance & Planeat Logo' },
+      { src: 'assets/images/vibe4.jpg', fallback: 'images (3).jpg', title: 'Balcony & 3D Signboard' },
+      { src: 'assets/images/vibe5.jpg', fallback: 'images (4).jpg', title: 'Evening Deck with String Lights' },
+      { src: 'assets/images/vibe6.jpg', fallback: 'images (5).jpg', title: 'Container Dining Space' }
+    ];
+
+    var currentGalleryIndex = 0;
+
+    function openLightbox(index) {
+      currentGalleryIndex = index;
+      updateLightboxUI();
+
+      var modal = document.getElementById('lightboxModal');
+      if (modal) {
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeLightbox() {
+      var modal = document.getElementById('lightboxModal');
+      if (modal) {
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+    }
+
+    function navigateLightbox(direction) {
+      currentGalleryIndex = (currentGalleryIndex + direction + galleryData.length) % galleryData.length;
+      updateLightboxUI();
+    }
+
+    function updateLightboxUI() {
+      var item = galleryData[currentGalleryIndex];
+      if (!item) return;
+
+      var img = document.getElementById('lightboxImg');
+      var caption = document.getElementById('lightboxCaption');
+
+      if (img) {
+        img.style.opacity = '0.3';
+        img.onerror = function() { img.src = item.fallback; };
+        setTimeout(function() {
+          img.src = item.src;
+          img.style.opacity = '1';
+        }, 120);
+      }
+
+      if (caption) {
+        caption.textContent = item.title;
+      }
+    }
+
+    document.addEventListener('keydown', function(e) {
+      var modal = document.getElementById('lightboxModal');
+      if (modal && modal.classList.contains('active')) {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') navigateLightbox(-1);
+        if (e.key === 'ArrowRight') navigateLightbox(1);
+      }
+    });
+  </script>
+
 </body>
 </html>
