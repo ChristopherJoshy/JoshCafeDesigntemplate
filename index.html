@@ -1432,7 +1432,7 @@ M1591.000000,1173.000000
         });
       }
 
-      // ===== ANIME.JS — HERO STEAM ANIMATION =====
+            // ===== ANIME.JS — HERO STEAM ANIMATION =====
       function initSteam() {
         if (!window.__anime || prefersReducedMotion) return;
 
@@ -1443,14 +1443,20 @@ M1591.000000,1173.000000
 
         try {
           animate(steamPaths, {
-            opacity: [0.3, 0.7],
-            translateY: [2, -4],
-            duration: 3200,
+            translateY: [4, -14],
+            translateX: function(el, i) { return [i % 2 === 0 ? -4 : 4, i % 2 === 0 ? 6 : -6]; },
+            scaleX: [0.92, 1.12],
+            opacity: [0.2, 0.85],
+            duration: 3400,
             ease: 'inOutSine',
             loop: true,
             alternate: true,
-            delay: function(el, i) { return i * 400; }
+            delay: function(el, i) { return i * 600; }
           });
+        } catch (e) {
+          console.warn('Steam animation failed:', e);
+        }
+      });
         } catch (e) {
           console.warn('Steam animation failed:', e);
         }
